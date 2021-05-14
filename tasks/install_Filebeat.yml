@@ -1,0 +1,22 @@
+---
+
+ - name: Download package Filebeat on website
+   get_url:
+    url: https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.10.2-amd64.deb
+    dest: /opt/
+
+ - name: Install packages with dpkg command
+   shell: dpkg -i /opt/filebeat-7.10.2-amd64.deb
+
+ - name: Copy template filebeat.j2
+   template:
+    src: /etc/ansible/roles/ELK/templates/filebeat.j2
+    dest: /etc/filebeat/filebeat.yml
+   notify:
+    - Restart Filebeat service
+
+ - name: Disable Filebeat module
+   shell: filebeat modules disable nginx
+
+ - name: Active Filebeat module
+   shell: filebeat modules enable nginx

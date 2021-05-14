@@ -1,0 +1,25 @@
+---
+
+ - name: Download package Metricbeat on website
+   get_url:
+    url: https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.10.2-amd64.deb
+    dest: /opt/
+
+ - name: Install packages with dpkg command
+   shell: dpkg -i /opt/metricbeat-7.10.2-amd64.deb
+
+ - name: Copy template metricbeat.j2
+   template:
+    src: /etc/ansible/ELK/roles/templates/metricbeat.j2
+    dest: /etc/metricbeat/metricbeat.yml
+   notify:
+    - Restart Metricbeat service
+
+ - name: Disable Metricbeat module
+   shell: metricbeat modules disable system
+
+ - name: Active Metricbeat module
+   shell: metricbeat modules enable system
+
+ - name: Add dashboard in Kibana and config index
+   shell: metricbeat setup

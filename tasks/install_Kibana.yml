@@ -1,0 +1,14 @@
+ - name: Download package Kibana on website
+   get_url:
+    url: https://artifacts.elastic.co/downloads/kibana/kibana-7.10.2-amd64.deb
+    dest: /opt/
+
+ - name: Install packages with dpkg command
+   shell: dpkg -i /opt/kibana*.deb
+
+ - name: Copy template kibana.j2
+   template:
+    src: /etc/ansible/roles/ELK/templates/kibana.j2
+    dest: /etc/kibana/kibana.yml
+   notify:
+    - Restart Kibana service

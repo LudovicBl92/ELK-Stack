@@ -1,0 +1,8 @@
+---
+# tasks file for ELK
+- import_tasks: install_Elasticsearch.yml
+- import_tasks: install_Kibana.yml
+- import_tasks: install_Logstash.yml
+- import_tasks: install_Nginx.yml
+- import_tasks: install_Filebeat.yml
+- import_tasks: install_Metricbeat.yml

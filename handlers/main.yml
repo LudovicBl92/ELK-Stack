@@ -1,0 +1,27 @@
+---
+# handlers file for ELK
+
+ - name: Restart Filebeat service
+   systemd:
+    name: filebeat
+    state: restarted
+
+ - name: Restart Kibana service
+   service:
+    name: kibana
+    state: restarted
+
+ - name: Restart Logstash service
+   service:
+    name: logstash
+    state: restarted
+
+ - name: Restart Metricbeat service
+   systemd:
+    name: metricbeat
+    state: restarted
+
+ - name: Restart Nginx service
+   systemd:
+    name: nginx
+    state: restarted

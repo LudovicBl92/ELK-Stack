@@ -1,0 +1,8 @@
+---
+
+ - name: Install nginx and curl packages
+   apt:
+    name: ['nginx', 'curl']
+    state: latest
+   notify:
+    - Restart Nginx service

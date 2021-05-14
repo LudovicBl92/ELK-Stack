@@ -1,0 +1,32 @@
+---
+
+ - name: Install OpenJDK
+   apt:
+    name: openjdk-11-jdk-headless
+    state: latest
+
+ - name: Download package Logstash on website
+   get_url:
+    url: https://artifacts.elastic.co/downloads/logstash/logstash-7.10.2-amd64.deb
+    dest: /opt/
+
+ - name: Install packages with dpkg command
+   shell: dpkg -i /opt/logstash*.deb
+
+ - name: Create logstash pattern directory for Nginx
+   file:
+    path: /etc/logstash/pattern
+    state: directory
+
+ - name: Copy nginx pattern file
+   copy:
+    src: /etc/ansible/roles/ELK/files/nginx
+    dest: /etc/logstash/pattern/
+
+ - name: Copy template configuration files on /etc/logstash/conf.d
+   template:
+    src: /etc/ansible/roles/ELK/templates/nginx.j2
+    dest: /etc/logstash/conf.d/nginx.conf
+   notify:
+    - Restart Logstash service
+

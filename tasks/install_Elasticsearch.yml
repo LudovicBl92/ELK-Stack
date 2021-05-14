@@ -1,0 +1,19 @@
+---
+
+ - name: Update and upgrade host
+   apt:
+    update_cache: yes
+    upgrade: yes
+
+ - name: Download package Elasticsearch on website
+   get_url:
+    url: https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.10.2-amd64.deb
+    dest: /opt/
+
+ - name: Install packages with dpkg command
+   shell: dpkg -i /opt/elasticsearch*.deb
+
+ - name: Copy template elasticsearch.j2
+   template:
+    src: /etc/ansible/roles/ELK/templates/elasticsearch.j2
+    dest: /etc/elasticsearch/elasticsearch.yml
