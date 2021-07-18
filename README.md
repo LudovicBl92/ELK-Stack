@@ -1,5 +1,7 @@
 # ELK
 
+This playbook is functional on ubuntu 18.04
+
 These playbook allows ELK's installation with some modules. I install:
 	- Elasticsearch
 	- Kibana
